@@ -1,0 +1,23 @@
+#!/usr/bin/env ruby
+
+require 'thor'
+
+module CukePack
+  class CLI < Thor
+    include Thor::Actions
+
+    def self.source_root
+      File.expand_path('../../skel', __FILE__)
+    end
+
+    desc "install", "Install CukePack into the current directory"
+    def install
+      directory '.', '.'
+    end
+
+    default_task :install
+  end
+end
+
+CukePack::CLI.start
+
