@@ -18,3 +18,5 @@ flay_level = 32
 
 require 'cuke-pack/support/flay'
 
+# Timecop support
+# require 'cuke-pack/support/timecop'
