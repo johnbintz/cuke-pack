@@ -18,3 +18,6 @@ flay_level = 32
 
 require 'cuke-pack/support/flay'
 
+# require 'cuke-pack/support/fakefs'
+# require 'cuke-pack/support/mocha'
+

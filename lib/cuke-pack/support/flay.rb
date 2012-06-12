@@ -2,7 +2,7 @@
 # promote reusability!
 
 flay_exception = nil
-flay_level = 32 if flay_level == nil
+flay_level ||= 30
   # set me to a minimum sane level. don't go nuts refactoring!
   # code should be cleaner when you're done, not become spaghetti.
 
