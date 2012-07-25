@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'thor'
+require 'builder'
 
 module CukePack
   class CLI < Thor
@@ -33,7 +34,54 @@ end
       RB
     end
 
+    desc "screenshots DIR", "Start a screenshot server"
+    method_options %w{port -p} => 4432
+    def screenshots(dir = "features/screenshots")
+      require 'rack'
+
+      Rack::Handler.default.run(ScreenshotsApp.new(dir), :Port => options[:port])
+    end
+
     default_task :install
+  end
+end
+
+class ScreenshotsApp
+  def initialize(dir)
+    @dir = dir
+  end
+
+  def call(env)
+    by_file = {}
+
+    Dir[@dir + '/**/*.png'].each do |file|
+      file = file.gsub(%r{^#{@dir}/}, '')
+
+      parts = file.split('/')
+
+      browser = parts.shift
+
+      name = parts.join('/')
+
+      by_file[name] ||= []
+      by_file[name] << browser
+    end
+
+    output = Builder::XmlMarkup.new
+
+    output.html {
+      output.head {
+        output.title("Screenshots")
+      }
+
+      output.body {
+        by_file.each do |name, browsers|
+
+        end
+      }
+    }
+
+    [ 200, {}, [ output.to_s ] ]
   end
 end
 
