@@ -7,16 +7,19 @@ module CukePack
 end
 
 def take_screenshot(name, options = {})
-  options = CukePack.screenshot_options.merge(options)
-
   selenium = Capybara.current_session.driver.browser
-  selenium.manage.window.resize_to(options[:width], options[:height])
 
-  target = options[:directory]
-  target = File.join(target, Capybara.current_driver.to_s)
-  target = File.join(target, name + ".png")
+  if selenium.respond_to?(:manage)
+    options = CukePack.screenshot_options.merge(options)
 
-  FileUtils.mkdir_p File.dirname(target)
+    selenium.manage.window.resize_to(options[:width], options[:height])
 
-  selenium.save_screenshot(target)
+    target = options[:directory]
+    target = File.join(target, Capybara.current_driver.to_s)
+    target = File.join(target, name + ".png")
+
+    FileUtils.mkdir_p File.dirname(target)
+
+    selenium.save_screenshot(target)
+  end
 end
