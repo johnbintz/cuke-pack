@@ -1,13 +1,31 @@
 MAX_TIMES = 20
 WAIT_TIME = 0.1
 
+def _wait_for_exceptions
+  exceptions = [ Capybara::ElementNotFound ]
+  if defined?(Capybara::Driver::Webkit::Node::ElementNotDisplayedError)
+    exceptions << Capybara::Driver::Webkit::Node::ElementNotDisplayedError
+  end
+
+  exceptions
+end
+
+def _wait_for_not_exceptions
+  exceptions = [ Capybara::ElementNotFound ]
+  if defined?(Capybara::Driver::Webkit::NodeNotAttachedError)
+    exceptions << Capybara::Driver::Webkit::NodeNotAttachedError
+  end
+
+  exceptions
+end
+
 def wait_for(times = MAX_TIMES)
   1.upto(times) do
     ok = false
 
     begin
       ok = yield
-    rescue Capybara::ElementNotFound, Capybara::Driver::Webkit::Node::ElementNotDisplayedError
+    rescue *_wait_for_exceptions
       ok = false
     end
 
@@ -30,7 +48,7 @@ def wait_for_not(times = MAX_TIMES)
 
     begin
       yield
-    rescue Capybara::Driver::Webkit::NodeNotAttachedError, Capybara::ElementNotFound
+    rescue *_wait_for_not_exceptions
       ok = true
     end
 
