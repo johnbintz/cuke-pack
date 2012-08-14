@@ -2,7 +2,7 @@
 
 require 'mocha'
 
-World(Mocha::Standalone)
+World(Mocha::API)
 
 def ensure_mocha
   return if @_mocha_ensured
