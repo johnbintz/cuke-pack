@@ -1,5 +1,6 @@
 require 'cuke-pack/support/pause'
 require 'cuke-pack/support/pending'
+require 'cuke-pack/support/confirm_js'
 
 Before do
   # if you want pending steps to pause before marking the step as pending,
@@ -23,3 +24,7 @@ require 'cuke-pack/support/flay'
 
 # Timecop support
 # require 'cuke-pack/support/timecop'
+
+# Browser drivers
+# use with ENV['DRIVER']
+# require 'cuke-pack/driver/firefox'
