@@ -6,6 +6,9 @@ def _wait_for_exceptions
   if defined?(Capybara::Driver::Webkit::Node::ElementNotDisplayedError)
     exceptions << Capybara::Driver::Webkit::Node::ElementNotDisplayedError
   end
+  if defined?(Selenium::WebDriver::Error::StaleElementReferenceError)
+    exceptions << Selenium::WebDriver::Error::StaleElementReferenceError
+  end
 
   exceptions
 end
@@ -14,6 +17,9 @@ def _wait_for_not_exceptions
   exceptions = [ Capybara::ElementNotFound ]
   if defined?(Capybara::Driver::Webkit::NodeNotAttachedError)
     exceptions << Capybara::Driver::Webkit::NodeNotAttachedError
+  end
+  if defined?(Selenium::WebDriver::Error::StaleElementReferenceError)
+    exceptions << Selenium::WebDriver::Error::StaleElementReferenceError
   end
 
   exceptions
