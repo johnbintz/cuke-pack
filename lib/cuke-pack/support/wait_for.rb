@@ -1,3 +1,5 @@
+require 'sourcify'
+
 MAX_TIMES = 20
 WAIT_TIME = 0.1
 
@@ -18,6 +20,12 @@ def _wait_for_not_exceptions
   if defined?(Capybara::Driver::Webkit::NodeNotAttachedError)
     exceptions << Capybara::Driver::Webkit::NodeNotAttachedError
   end
+
+  exceptions
+end
+
+def _wait_for_not_continue_exceptions
+  exceptions = []
   if defined?(Selenium::WebDriver::Error::StaleElementReferenceError)
     exceptions << Selenium::WebDriver::Error::StaleElementReferenceError
   end
@@ -25,12 +33,26 @@ def _wait_for_not_exceptions
   exceptions
 end
 
-def wait_for(times = MAX_TIMES)
+class WaitingForElementFailure < StandardError
+  def initialize(code)
+    @code = code
+  end
+
+  def message
+    @code.to_source(:strip_enclosure => true)
+  end
+
+  def backtrace
+    [ @code.source_location.join(":") ]
+  end
+end
+
+def wait_for(times = MAX_TIMES, &block)
   1.upto(times) do
     ok = false
 
     begin
-      ok = yield
+      ok = block.()
     rescue *_wait_for_exceptions
       ok = false
     end
@@ -42,10 +64,10 @@ def wait_for(times = MAX_TIMES)
     end
   end
 
-  raise StandardError.new("Failed")
+  raise WaitingForElementFailure.new(block)
 end
 
-def wait_for_not(times = MAX_TIMES)
+def wait_for_not(times = MAX_TIMES, &block)
   original_time = Capybara.default_wait_time
   Capybara.default_wait_time = 0
 
@@ -53,7 +75,9 @@ def wait_for_not(times = MAX_TIMES)
     ok = false
 
     begin
-      yield
+      block.()
+    rescue *_wait_for_not_continue_exceptions
+      ok = false
     rescue *_wait_for_not_exceptions
       ok = true
     end
@@ -67,6 +91,6 @@ def wait_for_not(times = MAX_TIMES)
     end
   end
 
-  raise StandardError.new('Timed out')
+  raise WaitingForElementFailure.new(block)
 end
 
