@@ -1,6 +1,7 @@
 require 'cuke-pack/support/pause'
 require 'cuke-pack/support/pending'
 require 'cuke-pack/support/confirm_js'
+require 'cuke-pack/support/expect_fields'
 
 Before do
   # if you want pending steps to pause before marking the step as pending,
@@ -28,3 +29,8 @@ require 'cuke-pack/support/flay'
 # Browser drivers
 # use with ENV['DRIVER']
 # require 'cuke-pack/driver/firefox'
+#
+# Simple rails controller/view generator
+# probably only any good for me
+# require 'cuke-pack/support/rails_generator'
+
