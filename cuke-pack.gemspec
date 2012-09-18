@@ -20,5 +20,6 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'thor'
   gem.add_dependency 'flay'
   gem.add_dependency 'hirb'
+  gem.add_dependency 'sourcify'
 end
 
