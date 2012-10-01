@@ -24,7 +24,7 @@ def expect_fields(object, *fields, &block)
 
     within finder do
       fields.flatten.each do |field|
-        find(".#{field}").text.should == object.send(field).to_s
+        expect_field field, object.send(field).to_s
       end
 
       block.call(object) if block
@@ -35,3 +35,6 @@ def expect_fields(object, *fields, &block)
   @__expect_stack = nil if @__expect_stack == 0
 end
 
+def expect_field(field, value)
+  find(".#{field}").text.should == value
+end
