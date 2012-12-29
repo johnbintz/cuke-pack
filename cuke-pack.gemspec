@@ -21,6 +21,6 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'flay'
   gem.add_dependency 'hirb'
   gem.add_dependency 'sourcify'
-  gem.add_dependency 'sexp_processor', '~> 3.0'
+  gem.add_dependency 'sexp_processor'
 end
 
