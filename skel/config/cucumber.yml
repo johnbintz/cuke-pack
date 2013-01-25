@@ -3,7 +3,7 @@ std_opts = "--color -r features --format #{ENV['CUCUMBER_FORMAT'] || 'pretty'} -
 %>
 default: <%= std_opts %> features
 wip: <%= std_opts %> --tags @wip features
-precommit: <%= std_opts %> --tags ~@wip:0 --tags @no-precommit features
+precommit: <%= std_opts %> --tags ~@wip:0 --tags ~@no-precommit features
 
 # or enable FAILFAST to have your tests end immediately on failure
 #precommit: FAILFAST=true <%= std_opts %> --tags ~@wip:0 features
