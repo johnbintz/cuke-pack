@@ -1,5 +1,5 @@
 <%
-std_opts = "-r features --format #{ENV['CUCUMBER_FORMAT'] || 'pretty'} -f Cucumber::StepWriter --out features/step_definitions --strict"
+std_opts = "--color -r features --format #{ENV['CUCUMBER_FORMAT'] || 'pretty'} -f Cucumber::StepWriter --out features/step_definitions --strict"
 %>
 default: <%= std_opts %> features
 wip: <%= std_opts %> --tags @wip features
