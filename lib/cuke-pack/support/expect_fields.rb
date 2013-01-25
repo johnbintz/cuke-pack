@@ -1,4 +1,5 @@
 def expect_fields(object, *fields, &block)
+  $stderr.puts "expect_fields deprecated. Use semantic_rails_view_helpers instead."
   @__expect_stack ||= 0
   @__expect_stack += 1
 

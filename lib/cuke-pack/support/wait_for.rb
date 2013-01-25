@@ -48,6 +48,8 @@ class WaitingForElementFailure < StandardError
 end
 
 def wait_for(times = MAX_TIMES, &block)
+  $stderr.puts "wait_for deprecated. Just use find."
+
   1.upto(times) do
     ok = false
 
@@ -68,6 +70,8 @@ def wait_for(times = MAX_TIMES, &block)
 end
 
 def wait_for_not(times = MAX_TIMES, &block)
+  $stderr.puts "wait_for_not deprecated. Just use find."
+
   original_time = Capybara.default_wait_time
   Capybara.default_wait_time = 0
 
