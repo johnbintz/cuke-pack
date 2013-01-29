@@ -1,5 +1,3 @@
-require 'sourcify'
-
 MAX_TIMES = 20
 WAIT_TIME = 0.1
 
@@ -39,11 +37,11 @@ class WaitingForElementFailure < StandardError
   end
 
   def message
-    @code.to_source(:strip_enclosure => true)
+    @code
   end
 
   def backtrace
-    [ @code.source_location.join(":") ]
+    []
   end
 end
 
