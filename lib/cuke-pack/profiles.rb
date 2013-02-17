@@ -30,7 +30,7 @@ module CukePack
       <<-YML
 default: #{headless_opts} features
 wip: #{wip_opts}
-precommit: #{headless_opts} --tags ~@wip:0 features
+precommit: #{headless_opts} --tags ~@no-precommit --tags ~@wip:0 features
 cleanup: #{headless_opts} -f Cucumber::CleanupFormatter --out unused.txt features
 YML
     end
