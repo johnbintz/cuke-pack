@@ -15,12 +15,14 @@ module CukePack
         end
       end
 
+      standard_wip_opts = %{#{std_opts} --tags @wip}
+
       if in_progress
         File.open(rerun_file, 'wb') { |fh| fh.print in_progress }
 
         wip_opts = %{RERUN_FILE=#{rerun_file} RUN_INPROGRESS=#{in_progress_file} #{std_opts} @#{rerun_file}}
       else
-        wip_opts = %{#{std_opts} --tags @wip features}
+        wip_opts = %{#{standard_wip_opts} features}
       end
 
       headless_driver = ENV['DRIVER'] || 'poltergeist'
