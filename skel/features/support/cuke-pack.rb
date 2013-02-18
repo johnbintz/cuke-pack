@@ -7,6 +7,9 @@ require 'cuke-pack/support/step_writer'
 # fail instantly if ENV['FAILFAST'] is set
 require 'cuke-pack/support/failfast'
 
+# use advanced in_progress mode
+require 'cuke-pack/support/in_progress'
+
 # set the level of flaying on the step definitions
 # set it to false to skip flaying
 flay_level = 32
