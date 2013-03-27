@@ -19,6 +19,5 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'cucumber-step_writer'
   gem.add_dependency 'thor'
   gem.add_dependency 'flay'
-  gem.add_dependency 'hirb'
 end
 
