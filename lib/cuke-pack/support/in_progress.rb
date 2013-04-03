@@ -8,7 +8,7 @@ if ENV['INPROGRESS']
 end
 
 After do |s|
-  if s.failed?
+  if s.failed? && s.status == :pending
     if ENV['INPROGRESS']
       in_progress << s.feature.file_colon_line(s.line)
     end
