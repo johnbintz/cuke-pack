@@ -15,7 +15,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = CukePack::VERSION
 
-  gem.add_dependency 'cucumber'
+  gem.add_dependency 'cucumber', '>= 1.3.1'
   gem.add_dependency 'cucumber-step_writer'
   gem.add_dependency 'thor'
   gem.add_dependency 'flay'

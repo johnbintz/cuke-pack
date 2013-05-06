@@ -10,7 +10,12 @@ end
 After do |s|
   if s.failed? || s.status == :pending
     if ENV['INPROGRESS']
-      in_progress << s.feature.file_colon_line(s.line)
+      begin
+        in_progress << s.feature.file_colon_line.gsub(/\:\d+/, ":" + s.line.to_s)
+      rescue => e
+        puts e.message
+        puts e.backtrace.join("\n")
+      end
     end
 
     if ENV['RUN_INPROGRESS']
