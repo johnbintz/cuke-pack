@@ -11,7 +11,16 @@ After do |s|
   if s.failed? || s.status == :pending
     if ENV['INPROGRESS']
       begin
-        in_progress << s.feature.file_colon_line.gsub(/\:\d+/, ":" + s.line.to_s)
+        source = s
+        if source.respond_to?(:scenario_outline)
+          source = source.scenario_outline
+        end
+
+        if source.respond_to?(:feature)
+          feature = source.feature
+
+          in_progress << feature.file_colon_line.gsub(/\:\d+/, ":" + feature.line.to_s)
+        end
       rescue => e
         puts e.message
         puts e.backtrace.join("\n")
