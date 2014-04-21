@@ -12,12 +12,16 @@ After do |s|
     if ENV['INPROGRESS']
       begin
         source = s
+
         if source.respond_to?(:scenario_outline)
           source = source.scenario_outline
+          line = source.file_colon_line.gsub(/^.*\:/, '')
+        else
+          line = source.line.to_s
         end
 
         if source.respond_to?(:feature)
-          in_progress << source.feature.file_colon_line.gsub(/\:\d+/, ":" + source.line.to_s)
+          in_progress << source.feature.file_colon_line.gsub(/\:\d+/, ":" + line)
         end
       rescue => e
         puts e.message
