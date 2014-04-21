@@ -17,9 +17,7 @@ After do |s|
         end
 
         if source.respond_to?(:feature)
-          feature = source.feature
-
-          in_progress << feature.file_colon_line.gsub(/\:\d+/, ":" + feature.line.to_s)
+          in_progress << source.feature.file_colon_line.gsub(/\:\d+/, ":" + source.line.to_s)
         end
       rescue => e
         puts e.message
